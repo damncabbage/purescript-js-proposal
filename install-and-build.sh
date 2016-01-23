@@ -7,8 +7,19 @@ cd $SCRIPT_DIR # Just in case.
 
 # Install our JS dependencies for the below. The bower_component dependencies have
 # been committed to this repo only for the sake of demonstration.
+if [ $(npm --version | grep -c '^3') -eq 0 ]; then
+  echo "Needs npm v3+; either:"
+  echo '* use "npm install -g npm@3" and try again, or '
+  echo '* "npm install -g npm3" if you want to preserve npm v2 and edit the below NPM env variable in this script.'
+  exit 1
+fi
+export NPM="npm" # See error above; put npm3 if you installed the npm3 shim
 export PATH="node_modules/.bin:${PATH}"
-npm install
+$NPM install
+
+## Usual package installation. bower_components has been baked into the repo
+## in this demonstration, so I'm skipping over the "bower install"
+echo "Skipping 'bower install' for demo..."
 
 ##
 ## Roughly shimming the things Pallet might do on install, except
@@ -19,7 +30,7 @@ pushd bower_components
     if [ -f "${LIB}/package.json" ]; then
       pushd "${LIB}"
         echo "Installing npm libraries for ${LIB}"
-        npm install
+        $NPM install --only=production
       popd
     fi
   done
@@ -66,3 +77,8 @@ browserify output/*/*.js -e output/bundleEntry.js -o output/bundle.js
 node output/bundle.js
 
 echo "Done."
+
+## TODO: Current warts, beyond those mentioned above:
+## - `pulp test` currently breaks; I think this is an issue where we need to give
+##   a require-path as per the build step, but can't as "test" doesn't pass it
+##   on. Needs more of a look.
