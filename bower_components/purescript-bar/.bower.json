@@ -1,0 +1,28 @@
+{
+  "name": "purescript-bar",
+  "version": "0.2.2",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-console": "^0.1.0"
+  },
+  "scripts": {
+    "postinstall": "npm install"
+  },
+  "_release": "0.2.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.2",
+    "commit": "0625857d564fcd0e28904f13f9c35cb21e7c9153"
+  },
+  "_source": "file:///Users/rhoward/code/experiments/purescript/packaging/bowerpostinst/bar/.git",
+  "_target": "v0.2.2",
+  "_originalSource": "file:///Users/rhoward/code/experiments/purescript/packaging/bowerpostinst/bar/.git"
+}
